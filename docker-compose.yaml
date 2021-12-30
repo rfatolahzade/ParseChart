@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  server:
+    image: parseplatform/parse-server
+    environment:
+      - PARSE_SERVER_APPLICATION_ID=MyParseApp
+      - PARSE_SERVER_MASTER_KEY=adminadmin
+      - PARSE_SERVER_DATABASE_URI=postgres://postgres:postgres@postgres/postgres
+    ports:
+       - 1337:1337
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 5432:5432

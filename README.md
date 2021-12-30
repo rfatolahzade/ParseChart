@@ -79,3 +79,39 @@ sudo mv ./kompose /usr/local/bin/kompose
 #OR
 brew install kompose
 ```
+# Convert time
+just run :
+```bash
+mkdir postgres
+cd postgres
+cp ../docker-compose.yaml .
+kompose convert
+rm docker-compose.yaml
+```
+And Then Apply yaml files:
+```bash
+kubectl apply -f .
+```
+
+OR If you ran "kompose convert -o parse.yaml" then just run:
+```bash
+kubectl apply -f parse.yaml
+```
+
+Two way to find out why your pod not ready (if it happens):
+```bash
+#First one:
+kubectl logs pod/server-74cd8bb94d-bhtwt   #your pod name
+#Second one:
+kdes pod/server-74cd8bb94d-bhtwt   #describe of your not ready pod
+```
+To access to your Parse:
+```bash
+#The CLUSTER-IP  of your service/server
+curl <CLUSTER-IP>:1337/parse/health
+curl 10.43.33.149:1337/parse/health
+```
+It returns:
+```bash
+{"status":"ok"}
+```

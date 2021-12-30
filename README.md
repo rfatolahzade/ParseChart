@@ -116,7 +116,6 @@ It returns:
 {"status":"ok"}
 ```
 
-
 Now lets expose this port via nodePort service:
 ```bash
 mkdir nodePort
@@ -170,4 +169,29 @@ curl -X GET \
   -H "X-Parse-Application-Id: MyParseApp" \
   http://localhost:30001/parse/classes/GameScore
 ```
-done.
+
+# Helming!
+```bash
+echo $PWD
+#/root/ParseChart
+mkdir charts
+cd charts
+helm create Parse
+```
+First, delete everything under templates directory:
+```bash
+rm -r Parse/templates/*
+rmdir Parse/charts
+```
+and then copy all yaml file from convert (placed postgres) and place those files under the templates directory:
+```bash
+cp ../postgres/* $PWD/Parse/templates/
+```
+Lets install our app,First delete previus deployment:
+```bash
+cd ../../postgres
+kubectl delete -f .
+cd ../charts/Parse
+helm install parse .
+```
+Notice: in "helm install parse ." You won't be able to set an uppercase name.

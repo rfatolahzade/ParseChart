@@ -115,3 +115,59 @@ It returns:
 ```bash
 {"status":"ok"}
 ```
+
+
+Now lets expose this port via nodePort service:
+```bash
+mkdir nodePort
+cd nodePort
+cp ../postgres/*  .
+
+```
+You have to add "nodePort: 30001" & type: NodePort under spec section of server-service:
+```bash
+spec:
+  ports:
+    - name: "1337"
+      protocol: "TCP"
+      port: 1337
+      targetPort: 1337
+      nodePort: 30001
+  selector:
+    io.kompose.service: server
+  type: NodePort
+status:
+  loadBalancer: {}
+
+```
+and then apply changes:
+```bash
+kubectl apply -f .
+```
+Now lets POST a sample record:
+```bash
+curl -X POST \
+-H "X-Parse-Application-Id: MyParseApp" \
+-H "Content-Type: application/json" \
+-d '{"score":1000,"playerName":"Rain Man","cheatMode":false}' \
+http://localhost:30001/parse/classes/GameScore
+```
+You should get a response similar to this:
+```bash
+{
+"objectId":"kJx7buQPDW",
+"createdAt":"2021-12-08T09:17:08.682Z"
+}
+Get the record (Notice the objectId at least of the url):
+```bash
+curl -X GET \
+  -H "X-Parse-Application-Id: MyParseApp" \
+  http://localhost:30001/parse/classes/GameScore/kJx7buQPDW  
+```
+Get all records that you defined:
+```bash
+curl -X GET \
+  -H "X-Parse-Application-Id: MyParseApp" \
+  http://localhost:30001/parse/classes/GameScore
+```
+done.

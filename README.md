@@ -236,7 +236,7 @@ helm upgrade parse . -f values.yaml
 kubectl get all -o wide 
 ```
 
-##### Add ingress 
+# Ingress 
 Let's add ingress to project:
 ```bash
 cd charts/Parse
@@ -276,9 +276,10 @@ Apply changes:
 helm upgrade parse . -f values.yaml
 kubectl get ingress
 ```
-
-#On CLUSTER-IP of service/server:
+```bash
+#Test On your CLUSTER-IP of(service/server) first :
 curl 10.43.27.73:1337/parse/health
 #On our Ingress:
 curl http://rfinland.net/parse/health
+```
 ```

@@ -282,4 +282,48 @@ curl 10.43.27.73:1337/parse/health
 #On our Ingress:
 curl http://rfinland.net/parse/health
 ```
+
+# GitHub Pages
+Create a new branch for github pages:
+```bash
+#Create a new branch:
+git checkout --orphan gh-pages
+#We have to make it empty:
+git rm -rf .
+#Commit & Push the new branch:
+git commit --allow-empty -m "root commit"
+git push origin gh-pages
+#Chech the current branch:
+git branch
+#Switch to the branch:
+git checkout gh-pages
+#Switch to master branch:
+git checkout master
+#Delete branch: When your current branch is main
+git branch -d gh-pages
+#Delete branch remotely
+git push origin --delete gh-pages
 ```
+
+Lets create an index.html file on our new branch:
+```bash
+git checkout gh-pages
+touch index.html
+echo "Hello!" > index.html
+git add .
+git commit -m "A index html to GitHub page"
+git push --set-upstream origin gh-pages
+```
+
+And then visit:
+```bash
+https://rfinland.github.io/ParseChart/index.html
+#https://YOURGITHUBUSER.github.io/YOURPROJECT/index.html
+#OR just visit:
+https://rfinland.github.io/ParseChart/
+```
+You should able to see what's happen in github actions on your repo
+Also you can set theme for your page and add a README.md
+For open source projects, GitHub Pages is a great choice to host Helm repositories. 
+We’re using the gh-pages branch to store and serve the packaged charts in this part of article. 
+After each release we undergo a manual process of packaging and pushing the new chart version to the gh-pages branch.

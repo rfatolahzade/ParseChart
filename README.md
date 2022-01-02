@@ -329,8 +329,13 @@ We’re using the gh-pages branch to store and serve the packaged charts in this
 After each release we undergo a manual process of packaging and pushing the new chart version to the gh-pages branch.
 
 # Create Helm package
-#### with cr:
-After clone the repo:
+## With cr (chart-releaser)
+Install the cr:
+```bash
+brew tap helm/tap
+brew install chart-releaser
+```
+And then clone the repo:
 ```bash
 git clone https://github.com/rfinland/ParseChart.git
 ```
@@ -348,8 +353,11 @@ Update a Helm chart repository index.yaml file based on a the given GitHub repos
 ```bash
 cr index -i ./index.yaml -p .deploy --owner rfinland --charts-repo https://rfinland.github.io/ParseChart --git-repo ParseChart
 ```
-My first package link:https://github.com/rfinland/ParseChart/releases/download/Parse-0.1.0/Parse-0.1.0.tgz
-And then push created index.yaml to gh-pages branch:
+My first package link:
+```bash
+https://github.com/rfinland/ParseChart/releases/download/Parse-0.1.0/Parse-0.1.0.tgz
+```
+Push created index.yaml to gh-pages branch:
 ```bash
 git checkout gh-pages
 git add index.yaml
@@ -369,12 +377,14 @@ helm search repo Parse
 ```
 #### Install the package:
 
-#The absolute URL: 
+##### via The absolute URL: 
 ```bash
 helm install parse https://github.com/rfinland/ParseChart/releases/download/Parse-0.1.0/Parse-0.1.0.tgz
 ```
-#The package:
+##### via The package:
  ```bash
 helm install parse parse/parse
 ```
+
+
 

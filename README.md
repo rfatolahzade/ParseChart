@@ -438,7 +438,7 @@ git push
 Visit the action tab  and watch what's going on, As you can see after whole procces of the action done, new release "Parse-0.1.1" published as well.
 You can update your helm repo and see the new release.
 
-# Add configmap and secret to the helm project:
+# Add configmap:
 First I do these steps commandly, Lets create a confimap:
 ```bash
 k create configmap parse \
@@ -508,7 +508,9 @@ http://localhost:1337/parse/classes/GameScore
 ```
 Get the record:
 ```bash
-curl -X GET   -H "X-Parse-Application-Id: MyParseApp"   http://localhost:1337/parse/classes/GameScore
+curl -X GET \
+  -H "X-Parse-Application-Id: MyParseApp" \
+  http://localhost:1337/parse/classes/GameScore
 ```
 
 

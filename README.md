@@ -327,3 +327,54 @@ Also you can set theme for your page and add a README.md
 For open source projects, GitHub Pages is a great choice to host Helm repositories. 
 We’re using the gh-pages branch to store and serve the packaged charts in this part of article. 
 After each release we undergo a manual process of packaging and pushing the new chart version to the gh-pages branch.
+
+# Create Helm package
+#### with cr:
+After clone the repo:
+```bash
+git clone https://github.com/rfinland/ParseChart.git
+```
+Run this command to create package of your helm chart:
+```bash
+cd ParseChart
+helm package charts/Parse --destination .deploy
+```
+Upload Helm chart packages to GitHub Releases:
+```bash
+cr upload -o rfinland -r ParseChart -p .deploy -t <YOURTOKEN>
+git checkout gh-pages
+```
+Update a Helm chart repository index.yaml file based on a the given GitHub repository's releases:
+```bash
+cr index -i ./index.yaml -p .deploy --owner rfinland --charts-repo https://rfinland.github.io/ParseChart --git-repo ParseChart
+```
+My first package link:https://github.com/rfinland/ParseChart/releases/download/Parse-0.1.0/Parse-0.1.0.tgz
+And then push created index.yaml to gh-pages branch:
+```bash
+git checkout gh-pages
+git add index.yaml
+git commit -m "Added index yaml"
+git push
+```
+The index.yaml file avaiable on:
+```bash
+https://rfinland.github.io/ParseChart/index.yaml
+```
+At last:
+```bash
+helm repo add Parse https://rfinland.github.io/ParseChart
+helm repo update
+helm repo list
+helm search repo Parse
+```
+#### Install the package:
+
+#The absolute URL: 
+```bash
+helm install parse https://github.com/rfinland/ParseChart/releases/download/Parse-0.1.0/Parse-0.1.0.tgz
+```
+#The package:
+ ```bash
+helm install parse parse/parse
+```
+

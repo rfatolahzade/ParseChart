@@ -25,10 +25,21 @@ spec:
     spec:
       containers:
         - env:
-            {{- range .Values.server }}
-            - name: {{ .name }}
-              value: {{ .value }}
-            {{- end }} 
+             - name: PARSE_SERVER_APPLICATION_ID
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: PARSE_SERVER_APPLICATION_ID
+             - name: PARSE_SERVER_MASTER_KEY
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: PARSE_SERVER_MASTER_KEY
+             - name: PARSE_SERVER_DATABASE_URI
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: PARSE_SERVER_DATABASE_URI 
           image: parseplatform/parse-server
           name: server
           ports:

@@ -438,7 +438,78 @@ git push
 Visit the action tab  and watch what's going on, As you can see after whole procces of the action done, new release "Parse-0.1.1" published as well.
 You can update your helm repo and see the new release.
 
+# Add configmap and secret to the helm project:
+First I do these steps commandly, Lets create a confimap:
+```bash
+k create configmap parse \
+--from-literal=PARSE_SERVER_APPLICATION_ID=MyParseApp \
+--from-literal=PARSE_SERVER_MASTER_KEY=adminadmin \
+--from-literal=PARSE_SERVER_DATABASE_URI=postgres://postgres:postgres@postgres/postgres
+```
+Lest see our configmap:
+```bash
+kubectl get cm
+kubectl describe cm parse
+```
+Then, We have to set env to use our new configmap, so lets do it:
+```bash
+nano charts/Parse/templates/server-deployment.yaml 
+```
+Change:
+```bash
+    spec:
+      containers:
+        - env:
+            {{- range .Values.server }}
+            - name: {{ .name }}
+              value: {{ .value }}
+            {{- end }} 
+          image: parseplatform/parse-server
+```
+to:
+```bash
+    spec:
+      containers:
+        - env:
+             - name: PARSE_SERVER_APPLICATION_ID
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: PARSE_SERVER_APPLICATION_ID
+             - name: PARSE_SERVER_MASTER_KEY
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: PARSE_SERVER_MASTER_KEY
+             - name: PARSE_SERVER_DATABASE_URI
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: PARSE_SERVER_DATABASE_URI 
+          image: parseplatform/parse-server
+```
+Save the changes and run:
+```bash
+helm install  parse ./charts/Parse/
+#helm upgrade  parse ./charts/Parse/
+```
 
+lets test the Parse:
+```bash
+curl http://localhost:1337/parse/health
+```
+Chacke the status and post a record:
+```bash
+curl -X POST \
+-H "X-Parse-Application-Id: MyParseApp" \
+-H "Content-Type: application/json" \
+-d '{"score":1000,"playerName":"Rain Man","cheatMode":false}' \
+http://localhost:1337/parse/classes/GameScore
+```
+Get the record:
+```bash
+curl -X GET   -H "X-Parse-Application-Id: MyParseApp"   http://localhost:1337/parse/classes/GameScore
+```
 
 
 

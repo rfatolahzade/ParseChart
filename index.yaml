@@ -3,6 +3,16 @@ entries:
   Parse:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2022-01-02T09:00:13.495674675Z"
+    description: Parse platform
+    digest: cede79ea4ed47e344f9327e5a43f4f0cf87c349fbf95fc7eba944ffee70691fd
+    name: Parse
+    type: application
+    urls:
+    - https://github.com/rfinland/ParseChart/releases/download/Parse-0.1.1/Parse-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2022-01-01T18:00:18.883454242Z"
     description: Parse platform
     digest: 4b4808204d396ef6192676ec08938b6e64bfc3e550bbafe4d85c5c686ff64250

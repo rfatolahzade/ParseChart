@@ -386,5 +386,59 @@ helm install parse https://github.com/rfinland/ParseChart/releases/download/Pars
 helm install parse parse/parse
 ```
 
+## With GitHub action
+Now I'm going to create the package via GitHub action:
+ ```bash
+mkdir .github
+mkdir .github/workflows
+touch .github/workflows/release.yaml 
+nano .github/workflows/release.yaml 
+ ```
+Fill it as below:
+ ```bash
+name: Release Charts
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.1.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+		  
+ ```
+Make a fake release to test the action:
+in the ParseChart\charts\Parse\Chart.yaml
+I changed:
+ ```bash
+version: 0.1.0 to version: 0.1.1
+ ```
+save the change and push our changes
+ ```bash
+git checkout main
+git add .
+git commit -m "make an action"
+git push
+ ```
+Visit the action tab  and watch what's going on, As you can see after whole procces of the action done, new release "Parse-0.1.1" published as well.
+You can update your helm repo and see the new release.
+
+
+
 
 

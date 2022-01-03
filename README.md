@@ -526,6 +526,67 @@ curl -X GET \
   -H "X-Parse-Application-Id: MyParseApp" \
   http://rfinland.net/parse/classes/GameScore
 ```
+#### change value inner configmap env
+Now you can delete values.yaml, and lets edit cm:
+```bash
+k edit cm parse
+```
+then change the name via "kubectl edit cm parse" and then change the value or:
+
+```bash
+kubectl get cm parse -o yaml | \
+  sed -e 's|PARSE_SERVER_APPLICATION_ID: MyParseApp|PARSE_SERVER_APPLICATION_ID: MyParseApps|' | \
+  kubectl apply -f -
+```
+see your change:
+```bash
+kubectl get cm parse -o yaml
+#history of change saved as well if you ran your change via command
+```
+Now we have to restart deployment/pod:
+```bash
+kubectl rollout restart deployment server 
+#OR
+k exec -it pod/server-57b5f759b9-qkrtm sh
+reboot
+```
+
+After reboot/restart lets take a look inner NEW pod:
+```bash
+k exec -it pod/server-66df6c6cd8-xr6v4 sh
+env | grep My
+```
+
+Your new value is here "PARSE_SERVER_APPLICATION_ID=MyParseApps".
+And test the new value:
+```bash
+curl -X POST \
+-H "X-Parse-Application-Id: MyParseApps" \
+-H "Content-Type: application/json" \
+-d '{"score":1001,"playerName":"Rain Man","cheatMode":true}' \
+http://localhost:1337/parse/classes/GameScore
+
+#in ingress mode:
+curl -X POST \
+-H "X-Parse-Application-Id: MyParseApps" \
+-H "Content-Type: application/json" \
+-d '{"score":1001,"playerName":"Rain Man","cheatMode":true}' \
+http://rfinland.net/parse/classes/GameScore
+```
+
+Get record(s):
+```bash
+curl -X GET \
+  -H "X-Parse-Application-Id: MyParseApps" \
+  http://localhost:1337/parse/classes/GameScore
+#in ingress mode:
+curl -X GET \
+  -H "X-Parse-Application-Id: MyParseApps" \
+  http://rfinland.net/parse/classes/GameScore
+```
+AS you'll see old records also exists.
+
+
 
 
 

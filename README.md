@@ -494,9 +494,11 @@ helm install  parse ./charts/Parse/
 #helm upgrade  parse ./charts/Parse/
 ```
 
-lets test the Parse:
+lets test the Parse, If you run my project, ingress.yaml it will exist in the templates directory: 
 ```bash
 curl http://localhost:1337/parse/health
+#in ingress mode:
+curl http://rfinland.net/parse/health
 ```
 Chacke the status and post a record:
 ```bash
@@ -505,12 +507,24 @@ curl -X POST \
 -H "Content-Type: application/json" \
 -d '{"score":1000,"playerName":"Rain Man","cheatMode":false}' \
 http://localhost:1337/parse/classes/GameScore
+
+#in ingress mode:
+curl -X POST \
+-H "X-Parse-Application-Id: MyParseApp" \
+-H "Content-Type: application/json" \
+-d '{"score":1000,"playerName":"Rain Man","cheatMode":false}' \
+http://rfinland.net/parse/classes/GameScore
+
 ```
 Get the record:
 ```bash
 curl -X GET \
   -H "X-Parse-Application-Id: MyParseApp" \
   http://localhost:1337/parse/classes/GameScore
+#in ingress mode:
+curl -X GET \
+  -H "X-Parse-Application-Id: MyParseApp" \
+  http://rfinland.net/parse/classes/GameScore
 ```
 
 

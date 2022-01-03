@@ -584,7 +584,7 @@ curl -X GET \
   -H "X-Parse-Application-Id: MyParseApps" \
   http://rfinland.net/parse/classes/GameScore
 ```
-AS you'll see old records also exists.
+As you can see old records also exists.
 
 
 

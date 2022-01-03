@@ -438,20 +438,20 @@ git push
 Visit the action tab  and watch what's going on, As you can see after whole procces of the action done, new release "Parse-0.1.1" published as well.
 You can update your helm repo and see the new release.
 
-# Add configmap:
-First I do these steps commandly, Lets create a confimap:
+# Add configmap::
+First,I do these steps commandly, Let's create a configmap:
 ```bash
 k create configmap parse \
 --from-literal=PARSE_SERVER_APPLICATION_ID=MyParseApp \
 --from-literal=PARSE_SERVER_MASTER_KEY=adminadmin \
 --from-literal=PARSE_SERVER_DATABASE_URI=postgres://postgres:postgres@postgres/postgres
 ```
-Lest see our configmap:
+Let's see our configmap:
 ```bash
 kubectl get cm
 kubectl describe cm parse
 ```
-Then, We have to set env to use our new configmap, so lets do it:
+Then, we have to set env to use our new configmap, so let's do it:
 ```bash
 nano charts/Parse/templates/server-deployment.yaml 
 ```
@@ -494,7 +494,7 @@ helm install  parse ./charts/Parse/
 #helm upgrade  parse ./charts/Parse/
 ```
 
-lets test the Parse, If you run my project, ingress.yaml it will exist in the templates directory: 
+Test the Parse, If you run my project, ingress.yaml it will exist in the templates directory: 
 ```bash
 curl http://localhost:1337/parse/health
 #in ingress mode:
@@ -527,7 +527,7 @@ curl -X GET \
   http://rfinland.net/parse/classes/GameScore
 ```
 #### change value inner configmap env
-Now you can delete values.yaml, and lets edit cm:
+Now you can delete values.yaml, and let's edit cm:
 ```bash
 k edit cm parse
 ```
@@ -584,7 +584,7 @@ curl -X GET \
   -H "X-Parse-Application-Id: MyParseApps" \
   http://rfinland.net/parse/classes/GameScore
 ```
-As you can see old records also exists.
+As you can see old records also exist.
 
 
 

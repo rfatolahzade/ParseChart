@@ -1,12 +1,8 @@
 apiVersion: v1
+data:
+  PARSE_SERVER_APPLICATION_ID: MyParseApp
+  PARSE_SERVER_DATABASE_URI: postgres://postgres:postgres@postgres/postgres
 kind: ConfigMap
 metadata:
-  name: PARSE_SERVER_APPLICATION_ID
-data:
-  value: "MyParseApp"
-    name: PARSE_SERVER_MASTER_KEY
-data:
-  value: "adminadmin"
-    name: PARSE_SERVER_DATABASE_URI
-data:
-  value: "postgres://postgres:postgres@postgres/postgres"
+  name: parse
+  namespace: default

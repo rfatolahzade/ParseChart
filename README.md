@@ -740,7 +740,7 @@ curl http://rfinland.net/parse/health
 
 
 # call from values to configmap and secret then to env
-Our values.yaml file changed to:
+Our values.yaml file has been changed to:
 ```bash
 server:
  appId: 'MyParseApp' 

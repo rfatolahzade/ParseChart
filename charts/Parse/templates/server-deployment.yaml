@@ -34,7 +34,7 @@ spec:
                valueFrom:
                  secretKeyRef:
                    name: secret-parse
-                   key: PARSE_SERVER_MASTER_KEY
+                   key: master-key
              - name: PARSE_SERVER_DATABASE_URI
                valueFrom:
                  configMapKeyRef:

@@ -737,3 +737,61 @@ curl http://localhost:1337/parse/health
 curl http://rfinland.net/parse/health
 
 ```
+
+
+# call from values to configmap and secret then to env
+Our values.yaml file changed to:
+```bash
+server:
+ appId: 'MyParseApp' 
+ masterkey: 'adminadmin'
+ database: 'postgres://postgres:postgres@postgres/postgres'
+```
+
+our secret.yaml file (I set default value and call from values.yaml):
+```bash
+apiVersion: v1
+kind: Secret
+metadata:
+  name: secret-parse
+type: Opaque
+data:
+  {{ if .Values.server.masterKey }}
+  master-key: {{ .Values.server.masterKey | b64enc | quote }}
+  {{ else }}
+  master-key: {{ randAlphaNum 10 | b64enc | quote }}
+  {{ end }}
+  
+```  
+
+and in server-deployment.yaml:
+```bash
+        - env:
+             .
+			 .
+             - name: PARSE_SERVER_MASTER_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: secret-parse
+                   key: master-key
+```
+Install the chart:
+```bash
+helm install  parse . -f values.yaml
+#OR default
+helm install  parse .
+```
+When you use default you can see diffrent inner the secret:
+```bash
+k edit secrets secret-parse
+```
+If you run:
+```bash
+echo -n 'adminadmin' | base64 
+```
+the result "YWRtaW5hZG1pbg=="
+and if you didn't call the values.yaml result of "k edit secrets secret-parse" will be diffrent.
+
+
+
+ 

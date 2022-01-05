@@ -1,7 +1,4 @@
 server:
- - name: PARSE_SERVER_APPLICATION_ID
-   value: MyParseApp
- - name: PARSE_SERVER_MASTER_KEY
-   value: adminadmin 
- - name: PARSE_SERVER_DATABASE_URI
-   value: postgres://postgres:postgres@postgres/postgres
+ appId: 'MyParseApp' 
+ masterkey: 'adminadmin'
+ database: 'postgres://postgres:postgres@postgres/postgres'

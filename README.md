@@ -438,7 +438,7 @@ git push
 Visit the action tab  and watch what's going on, As you can see after whole procces of the action done, new release "Parse-0.1.1" published as well.
 You can update your helm repo and see the new release.
 
-# Add configmap::
+# Add configmap:
 First,I do these steps commandly, Let's create a configmap:
 ```bash
 k create configmap parse \
@@ -586,7 +586,52 @@ curl -X GET \
 ```
 As you can see old records also exist.
 
+# Add secret:
 
+I deleted my old cm (you can ignore this step)
+And then recreate new configmap without "PARSE_SERVER_MASTER_KEY" I'll set it as a secret:
+```bash
+k create configmap parse \
+--from-literal=PARSE_SERVER_APPLICATION_ID=MyParseApp \
+--from-literal=PARSE_SERVER_DATABASE_URI=postgres://postgres:postgres@postgres/postgres
+```
+Let's create a secret and upgrad the helm chart:
+```bash
+k create secret generic secret-parse --from-literal=PARSE_SERVER_MASTER_KEY=adminadmin
+k get secret secret-parse -o yaml
+```
+In the "server-deployment.yaml" you have to change "configMapKeyRef" to "secretKeyRef" and change the name of it (if you had, changed the name):
 
+```bash
 
+             - name: PARSE_SERVER_MASTER_KEY
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: PARSE_SERVER_MASTER_KEY
+             - name: PARSE_SERVER_DATABASE_URI
+               valueFrom:
+```
+to:
+```bash
+             - name: PARSE_SERVER_MASTER_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: secret-parse
+                   key: PARSE_SERVER_MASTER_KEY
+             - name: PARSE_SERVER_DATABASE_URI
+               valueFrom:
+```
 
+After save run:
+```bash
+helm upgrade  parse ./charts/Parse/
+```
+
+Test the Parse, If you run my project, ingress.yaml it will exist in the templates directory:
+```bash
+curl http://localhost:1337/parse/health
+#in ingress mode:
+curl http://rfinland.net/parse/health
+```
+Now kubernetes call "PARSE_SERVER_APPLICATION_ID" and "PARSE_SERVER_DATABASE_URI" from configmap and call "PARSE_SERVER_MASTER_KEY" from secrets.

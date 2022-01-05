@@ -635,3 +635,51 @@ curl http://localhost:1337/parse/health
 curl http://rfinland.net/parse/health
 ```
 Now kubernetes call "PARSE_SERVER_APPLICATION_ID" and "PARSE_SERVER_DATABASE_URI" from configmap and call "PARSE_SERVER_MASTER_KEY" from secrets.
+
+
+# configmap file
+Create a config map as file in helm chart. In this step you can use your cm that is already created in your cluster or create a file as configmap in charts/Parse/templates:
+If you want to create the file your script will be:
+```bash
+touch charts/Parse/templates/configmap.yaml
+nano charts/Parse/templates/configmap.yaml
+```
+and paste:
+```bash
+apiVersion: v1
+data:
+  PARSE_SERVER_APPLICATION_ID: MyParseApp
+  PARSE_SERVER_DATABASE_URI: postgres://postgres:postgres@postgres/postgres
+kind: ConfigMap
+metadata:
+  name: parse
+  namespace: default
+```
+If you want to create this file from your cm that ran with command, It just need to run:
+```bash
+kubectl edit cm parse
+```
+and then copy script into a file in charts/Parse/templates directory and remove unnecessary lines like creationTimestamp, resourceVersion, uid and your configmap file will be same as I did in the configmap.yaml
+
+Delete the cm parse and upgrade the chart:
+
+```bash
+kubectl delete cm parse
+```
+then  run:
+```bash
+kubectl rollout restart deployment server
+```
+to see whats happen when configmap not ready (your pod fails) Now lets fix this by applying configmap file to chart:
+
+```bash
+helm upgrade parse charts/Parse/ 
+kubectl get cm 
+kubectl get all -o wide 
+```
+Test the Parse, If you run my project, ingress.yaml it will exist in the templates directory:
+```bash
+curl http://localhost:1337/parse/health
+#in ingress mode:
+curl http://rfinland.net/parse/health
+```

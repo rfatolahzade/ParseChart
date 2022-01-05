@@ -683,3 +683,57 @@ curl http://localhost:1337/parse/health
 #in ingress mode:
 curl http://rfinland.net/parse/health
 ```
+# secret file
+I'll do the same steps for secret as I did for configmap:
+```bash
+touch charts/Parse/templates/secret.yaml
+nano charts/Parse/templates/secret.yaml
+```
+First you have to create base64 of your value:
+
+echo -n 'adminadmin' | base64
+the result "YWRtaW5hZG1pbg=="
+and set it in your value as below:
+ 
+
+and paste:
+```bash
+apiVersion: v1
+data:
+  PARSE_SERVER_MASTER_KEY: YWRtaW5hZG1pbg==
+kind: Secret
+metadata:
+  name: secret-parse
+  namespace: default
+type: Opaque
+```
+Also you can do it with:
+```bash
+kubectl edit secret secret-parse
+```
+and copy and paste in your secret yaml file and remove unnecessary lines .
+Delete the secret secret-parse and upgrade the chart:
+
+```bash
+kubectl delete secret secret-parse
+```
+
+then  run:
+```bash
+kubectl rollout restart deployment server
+```
+
+to see whats happen when secret state change (your pod stuck into CreateContainerConfigError) Now lets fix this by applying configmap file to chart:
+
+```bash
+helm upgrade parse charts/Parse/ 
+kubectl get secret 
+kubectl get all -o wide 
+```
+Test the Parse, If you run my project, ingress.yaml it will exist in the templates directory:
+```bash
+curl http://localhost:1337/parse/health
+#in ingress mode:
+curl http://rfinland.net/parse/health
+
+```

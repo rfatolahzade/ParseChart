@@ -740,6 +740,7 @@ curl http://rfinland.net/parse/health
 
 
 # call from values to configmap and secret then to env
+#### secret
 Our values.yaml file has been changed to:
 ```bash
 server:
@@ -793,5 +794,47 @@ the result "YWRtaW5hZG1pbg=="
 and if you didn't call the values.yaml result of "k edit secrets secret-parse" will be diffrent.
 
 
-
+#### configmap
+our configmap.yaml file (I set default value and call from values.yaml):
  
+ ```bash
+ data:
+  {{ if .Values.server.appId }}
+  app-id: {{ .Values.server.appId | b64enc | quote }}
+  {{ else }}
+  app-id: {{ "MyParse" }}
+  {{ end }}
+  
+  {{ if .Values.server.database }}
+  database-url: {{ .Values.server.database | quote }}
+  {{ else }}
+  database-url: {{ "postgres://postgres:postgres@postgres/postgres" }}
+  {{ end }}
+```
+
+In the serve.deployment.yaml:
+```bash
+        - env:
+             - name: PARSE_SERVER_APPLICATION_ID
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: app-id
+             - name: PARSE_SERVER_MASTER_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: secret-parse
+                   key: master-key
+             - name: PARSE_SERVER_DATABASE_URI
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: database-url 
+          image: parseplatform/parse-server
+```
+Install the chart:
+```bash
+helm install  parse . -f values.yaml
+#OR default
+helm install  parse .
+```

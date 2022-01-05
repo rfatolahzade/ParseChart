@@ -1,7 +1,17 @@
 apiVersion: v1
 data:
-  PARSE_SERVER_APPLICATION_ID: MyParseApp
-  PARSE_SERVER_DATABASE_URI: postgres://postgres:postgres@postgres/postgres
+  {{ if .Values.server.appId }}
+  app-id: {{ .Values.server.appId | b64enc | quote }}
+  {{ else }}
+  app-id: {{ "MyParse" }}
+  {{ end }}
+  
+  {{ if .Values.server.database }}
+  database-url: {{ .Values.server.database | quote }}
+  {{ else }}
+  database-url: {{ "postgres://postgres:postgres@postgres/postgres" }}
+  {{ end }}
+
 kind: ConfigMap
 metadata:
   name: parse

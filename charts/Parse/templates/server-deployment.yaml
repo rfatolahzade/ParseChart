@@ -29,7 +29,7 @@ spec:
                valueFrom:
                  configMapKeyRef:
                    name: parse
-                   key: PARSE_SERVER_APPLICATION_ID
+                   key: app-id
              - name: PARSE_SERVER_MASTER_KEY
                valueFrom:
                  secretKeyRef:
@@ -39,7 +39,7 @@ spec:
                valueFrom:
                  configMapKeyRef:
                    name: parse
-                   key: PARSE_SERVER_DATABASE_URI 
+                   key: database-url 
           image: parseplatform/parse-server
           name: server
           ports:

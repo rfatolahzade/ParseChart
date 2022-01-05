@@ -591,7 +591,7 @@ As you can see old records also exist.
 I deleted my old cm (you can ignore this step)
 And then recreate new configmap without "PARSE_SERVER_MASTER_KEY" I'll set it as a secret:
 ```bash
-k create configmap parse \
+k create secret parse \
 --from-literal=PARSE_SERVER_APPLICATION_ID=MyParseApp \
 --from-literal=PARSE_SERVER_DATABASE_URI=postgres://postgres:postgres@postgres/postgres
 ```

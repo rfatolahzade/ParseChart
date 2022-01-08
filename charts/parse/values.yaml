@@ -2,3 +2,4 @@ server:
  appId: 'MyParseApp' 
  masterkey: 'adminadmin'
  database: 'postgres://postgres:postgres@postgres/postgres'
+ postgresdatadir: '/postgresdata'

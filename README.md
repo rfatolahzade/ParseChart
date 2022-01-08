@@ -453,7 +453,7 @@ kubectl describe cm parse
 ```
 Then, we have to set env to use our new configmap, so let's do it:
 ```bash
-nano charts/Parse/templates/server-deployment.yaml 
+nano charts/parse/templates/server-deployment.yaml 
 ```
 Change:
 ```bash
@@ -490,8 +490,8 @@ to:
 ```
 Save the changes and run:
 ```bash
-helm install  parse ./charts/Parse/
-#helm upgrade  parse ./charts/Parse/
+helm install  parse ./charts/parse/
+#helm upgrade  parse ./charts/parse/
 ```
 
 Test the Parse, If you run my project, ingress.yaml it will exist in the templates directory: 
@@ -625,7 +625,7 @@ to:
 
 After save run:
 ```bash
-helm upgrade  parse ./charts/Parse/
+helm upgrade  parse ./charts/parse/
 ```
 
 Test the Parse, If you run my project, ingress.yaml it will exist in the templates directory:
@@ -638,11 +638,11 @@ Now kubernetes call "PARSE_SERVER_APPLICATION_ID" and "PARSE_SERVER_DATABASE_URI
 
 
 # configmap file
-Create a config map as file in helm chart. In this step you can use your cm that is already created in your cluster or create a file as configmap in charts/Parse/templates:
+Create a config map as file in helm chart. In this step you can use your cm that is already created in your cluster or create a file as configmap in charts/parse/templates:
 If you want to create the file your script will be:
 ```bash
-touch charts/Parse/templates/configmap.yaml
-nano charts/Parse/templates/configmap.yaml
+touch charts/parse/templates/configmap.yaml
+nano charts/parse/templates/configmap.yaml
 ```
 and paste:
 ```bash
@@ -659,7 +659,7 @@ If you want to create this file from your cm that ran with command, It just need
 ```bash
 kubectl edit cm parse
 ```
-and then copy script into a file in charts/Parse/templates directory and remove unnecessary lines like creationTimestamp, resourceVersion, uid and your configmap file will be same as I did in the configmap.yaml
+and then copy script into a file in charts/parse/templates directory and remove unnecessary lines like creationTimestamp, resourceVersion, uid and your configmap file will be same as I did in the configmap.yaml
 
 Delete the cm parse and upgrade the chart:
 
@@ -673,7 +673,7 @@ kubectl rollout restart deployment server
 to see whats happen when configmap not ready (your pod fails) Now lets fix this by applying configmap file to chart:
 
 ```bash
-helm upgrade parse charts/Parse/ 
+helm upgrade parse charts/parse/ 
 kubectl get cm 
 kubectl get all -o wide 
 ```
@@ -686,8 +686,8 @@ curl http://rfinland.net/parse/health
 # secret file
 I'll do the same steps for secret as I did for configmap:
 ```bash
-touch charts/Parse/templates/secret.yaml
-nano charts/Parse/templates/secret.yaml
+touch charts/parse/templates/secret.yaml
+nano charts/parse/templates/secret.yaml
 ```
 First you have to create base64 of your value:
 
@@ -726,7 +726,7 @@ kubectl rollout restart deployment server
 to see whats happen when secret state change (your pod stuck into CreateContainerConfigError) Now lets fix this by applying configmap file to chart:
 
 ```bash
-helm upgrade parse charts/Parse/ 
+helm upgrade parse charts/parse/ 
 kubectl get secret 
 kubectl get all -o wide 
 ```
@@ -843,8 +843,8 @@ helm install  parse .
 # PV,PVC
 Create pv.yaml:
 ```bash
-touch /ParseChart/charts/Parse/templates/pv.yaml
-nano /ParseChart/charts/Parse/templates/pv.yaml
+touch /ParseChart/charts/parse/templates/pv.yaml
+nano /ParseChart/charts/parse/templates/pv.yaml
 ```
 Paste:
 ```bash
@@ -868,8 +868,8 @@ I created /postgresdata directory as my pv hostPath named parse-pv-hostpath
 
 and then create pvc.yaml:
 ```bash
-touch /ParseChart/charts/Parse/templates/pvc.yaml
-nano /ParseChart/charts/Parse/templates/pvc.yaml
+touch /ParseChart/charts/parse/templates/pvc.yaml
+nano /ParseChart/charts/parse/templates/pvc.yaml
 ```
 Paste:
 ```bash

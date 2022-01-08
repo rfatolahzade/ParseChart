@@ -1,5 +1,5 @@
 apiVersion: v2
-name: Parse
+name: parse
 description: Parse platform
 
 # A chart can be either an 'application' or a 'library' chart.

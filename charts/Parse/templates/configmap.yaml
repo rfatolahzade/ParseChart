@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
   {{ if .Values.server.appId }}
-  app-id: {{ .Values.server.appId | b64enc | quote }}
+  app-id: {{ .Values.server.appId | quote }}
   {{ else }}
   app-id: {{ "MyParse" }}
   {{ end }}

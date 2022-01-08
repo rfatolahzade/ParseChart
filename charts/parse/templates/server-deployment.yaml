@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: server
+  name: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: server
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: server
+    spec:
+      containers:
+        - env:
+             - name: PARSE_SERVER_APPLICATION_ID
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: app-id
+             - name: PARSE_SERVER_MASTER_KEY
+               valueFrom:
+                 secretKeyRef:
+                   name: secret-parse
+                   key: master-key
+             - name: PARSE_SERVER_DATABASE_URI
+               valueFrom:
+                 configMapKeyRef:
+                   name: parse
+                   key: database-url 
+          image: parseplatform/parse-server
+          name: server
+          ports:
+            - containerPort: 1337
+          resources: {}
+      restartPolicy: Always
+status: {}

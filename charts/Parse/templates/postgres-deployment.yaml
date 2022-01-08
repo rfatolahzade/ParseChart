@@ -35,6 +35,13 @@ spec:
           name: postgres
           ports:
             - containerPort: 5432
+          volumeMounts:
+          - name: host-volume
+            mountPath: /var/lib/postgresql/data
           resources: {}
+      volumes:
+      - name: host-volume
+        persistentVolumeClaim:
+         claimName: parse-pvc-hostpath
       restartPolicy: Always
 status: {}

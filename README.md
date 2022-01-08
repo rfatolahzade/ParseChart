@@ -974,7 +974,7 @@ and then reInstall the chart:
 ```bash
 helm install parse . -f value.yaml
 ```
-Get the old records as well:
+Get old records as well:
 ```bash
 curl -X GET \
 -H "X-Parse-Application-Id: MyParseApp" \

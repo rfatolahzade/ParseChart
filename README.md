@@ -759,9 +759,9 @@ type: Opaque
 data:
   master-key: 
     {{ if .Values.masterkey }}
-      {{ .Values.masterkey | b64enc | quote }}
+      {{ .Values.masterkey | quote }}
      {{ else }}
-      {{ randAlphaNum 10 | b64enc | quote }}
+      {{ randAlphaNum 10 | quote }}
     {{ end }}
  
   
@@ -994,5 +994,3 @@ curl -X GET \
 http://rfinland.net/parse/classes/UserList
   
   ```
-
-

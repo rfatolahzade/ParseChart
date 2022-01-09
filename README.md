@@ -197,10 +197,10 @@ helm install parse .
 Notice: in "helm install parse ." You won't be able to set an uppercase name.
 
 ##### Values.yaml
-Lets create/empty values.yaml to set our envs:
+Lets create/empty values.sample.yaml to set our envs:
 
 ```bash
- cat <<EOF > values.yaml
+ cat <<EOF > values.sample.yaml
 server:
  - name: PARSE_SERVER_APPLICATION_ID
    value: MyParseApp
@@ -232,7 +232,7 @@ containers:
 ```
 save the file and run helm install contains your values file:	  
 ```bash
-helm upgrade parse . -f values.yaml
+helm upgrade parse . -f values.sample.yaml
 kubectl get all -o wide 
 ```
 
@@ -273,7 +273,7 @@ then copy the host IP in my case "192.168.1.209" and then set it in /etc/hosts
 ```
 Apply changes:
 ```bash
-helm upgrade parse . -f values.yaml
+helm upgrade parse . -f values.sample.yaml
 kubectl get ingress
 ```
 ```bash
@@ -527,7 +527,7 @@ curl -X GET \
   http://rfinland.net/parse/classes/GameScore
 ```
 #### change value inner configmap env
-Now you can delete values.yaml, and let's edit cm:
+Now you can delete values.sample.yaml, and let's edit cm:
 ```bash
 k edit cm parse
 ```
@@ -741,7 +741,7 @@ curl http://rfinland.net/parse/health
 
 # call from values to configmap and secret then to env
 #### secret
-Our values.yaml file has been changed to:
+Our values.sample.yaml file has been changed to:
 ```bash
 server:
  appId: 'MyParseApp' 
@@ -749,7 +749,7 @@ server:
  database: 'postgres://postgres:postgres@postgres/postgres'
 ```
 
-our secret.yaml file (I set default value and call from values.yaml):
+our secret.yaml file (I set default value and call from values.sample.yaml):
 ```bash
 apiVersion: v1
 kind: Secret
@@ -757,11 +757,13 @@ metadata:
   name: secret-parse
 type: Opaque
 data:
-  {{ if .Values.server.masterKey }}
-  master-key: {{ .Values.server.masterKey | b64enc | quote }}
-  {{ else }}
-  master-key: {{ randAlphaNum 10 | b64enc | quote }}
-  {{ end }}
+  master-key: 
+    {{ if .Values.masterkey }}
+      {{ .Values.masterkey | b64enc | quote }}
+     {{ else }}
+      {{ randAlphaNum 10 | b64enc | quote }}
+    {{ end }}
+ 
   
 ```  
 
@@ -778,7 +780,7 @@ and in server-deployment.yaml:
 ```
 Install the chart:
 ```bash
-helm install  parse . -f values.yaml
+helm install  parse . -f values.sample.yaml
 #OR default
 helm install  parse .
 ```
@@ -791,25 +793,27 @@ If you run:
 echo -n 'adminadmin' | base64 
 ```
 the result "YWRtaW5hZG1pbg=="
-and if you didn't call the values.yaml result of "k edit secrets secret-parse" will be diffrent.
+and if you didn't call the values.sample.yaml result of "k edit secrets secret-parse" will be diffrent.
 
 
 #### configmap
-our configmap.yaml file (I set default value and call from values.yaml):
+our configmap.yaml file (I set default value and call from values.sample.yaml):
  
  ```bash
- data:
-  {{ if .Values.server.appId }}
-  app-id: {{ .Values.server.appId | b64enc | quote }}
-  {{ else }}
-  app-id: {{ "MyParse" }}
-  {{ end }}
-  
-  {{ if .Values.server.database }}
-  database-url: {{ .Values.server.database | quote }}
-  {{ else }}
-  database-url: {{ "postgres://postgres:postgres@postgres/postgres" }}
-  {{ end }}
+apiVersion: v1
+data:
+  app-id: 
+   {{ if .Values.appId }}
+    {{ .Values.appId | quote }}
+   {{ else }}
+    {{ "MyParse" }}
+   {{ end }} 
+  database-url: "postgres://postgres:postgres@postgres/postgres"
+
+kind: ConfigMap
+metadata:
+  name: parse
+  namespace: default
 ```
 
 In the serve.deployment.yaml:
@@ -834,7 +838,7 @@ In the serve.deployment.yaml:
 ```
 Install the chart:
 ```bash
-helm install  parse . -f values.yaml
+helm install  parse . -f values.sample.yaml
 #OR default
 helm install  parse .
 ```
@@ -857,11 +861,16 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 1Gi
+    storage: 100Mi
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/postgresdata"
+    path: 
+    {{ if .Values.postgresdatadir }}
+      {{ .Values.postgresdatadir | quote }}
+    {{ else }}
+      {{ "/postgresdata" }}
+    {{ end }}
 ```
 	
 I created /postgresdata directory as my pv hostPath named parse-pv-hostpath
@@ -917,7 +926,7 @@ The mountPath: /var/lib/postgresql/data as postgres data directory.
 Let's intall the helm:
 ```bash
 cd /ParseChart/charts/Parse
-helm install parse . -f values.yaml
+helm install parse . -f values.sample.yaml
 ```
 
 Test Health:
@@ -972,7 +981,7 @@ helm uninstall parse
 ```
 and then reInstall the chart:
 ```bash
-helm install parse . -f value.yaml
+helm install parse . -f values.sample.yaml
 ```
 Get old records as well:
 ```bash
@@ -985,4 +994,5 @@ curl -X GET \
 http://rfinland.net/parse/classes/UserList
   
   ```
+
 

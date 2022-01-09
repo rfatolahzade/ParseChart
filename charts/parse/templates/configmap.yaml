@@ -1,10 +1,11 @@
 apiVersion: v1
 data:
-  {{ if .Values.appId }}
-  app-id: {{ .Values.appId | quote }}
-  {{ else }}
-  app-id: {{ "MyParse" }}
-  {{ end }} 
+  app-id: 
+   {{ if .Values.appId }}
+    {{ .Values.appId | quote }}
+   {{ else }}
+    {{ "MyParse" }}
+   {{ end }} 
   database-url: "postgres://postgres:postgres@postgres/postgres"
 
 kind: ConfigMap

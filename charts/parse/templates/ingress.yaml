@@ -1,3 +1,5 @@
+{{- if .Values.hostname -}}
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -6,7 +8,8 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: rfinland.net
+  - host: 
+     {{ .Values.hostname }}
     http:
       paths:
         - path: /
@@ -16,3 +19,4 @@ spec:
               name: server
               port:
                 number: 1337
+{{- end -}}

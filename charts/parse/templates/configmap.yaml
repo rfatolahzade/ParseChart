@@ -6,7 +6,7 @@ data:
    {{ else }}
     {{ "MyParse" }}
    {{ end }} 
-  database-url: "postgres://postgres:postgres@postgres/postgres"
+  #database-url: "postgres://postgres:@parse-postgresql/postgres"
 
 kind: ConfigMap
 metadata:

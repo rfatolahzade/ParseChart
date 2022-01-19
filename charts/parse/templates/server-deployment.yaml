@@ -35,11 +35,13 @@ spec:
                  secretKeyRef:
                    name: secret-parse
                    key: master-key
-             - name: PARSE_SERVER_DATABASE_URI
+             - name: POSTGRES_PASS
                valueFrom:
-                 configMapKeyRef:
-                   name: parse
-                   key: database-url 
+                 secretKeyRef:
+                   name: parse-postgresql
+                   key: postgresql-password
+             - name: PARSE_SERVER_DATABASE_URI
+               value: postgres://postgres:$(POSTGRES_PASS)@parse-postgresql/postgres
           image: parseplatform/parse-server
           name: server
           ports:

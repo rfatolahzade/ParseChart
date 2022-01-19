@@ -2,3 +2,6 @@ appId: 'MyParseApp'
 masterkey: 'adminadmin'
 postgresdatadir: '/postgresdata'
 hostname: 'rfinland.net'
+
+postgresql:
+  postgresqlPassword: 'mypass'

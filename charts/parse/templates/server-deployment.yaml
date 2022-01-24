@@ -38,10 +38,10 @@ spec:
              - name: POSTGRES_PASS
                valueFrom:
                  secretKeyRef:
-                   name: parse-postgresql
+                   name: secret-postgresql
                    key: postgresql-password
              - name: PARSE_SERVER_DATABASE_URI
-               value: postgres://postgres:$(POSTGRES_PASS)@parse-postgresql/postgres
+               value: postgresql://postgres:$(POSTGRES_PASS)@postgresql/postgres
           image: parseplatform/parse-server
           name: server
           ports:

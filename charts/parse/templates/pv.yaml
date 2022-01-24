@@ -12,8 +12,8 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: 
-    {{ if .Values.postgresdatadir }}
-      {{ .Values.postgresdatadir | quote }}
+    {{ if .Values.postgresql.postgresdatadir }}
+      {{ .Values.postgresql.postgresdatadir | quote }}
     {{ else }}
       {{ "/postgresdata" }}
     {{ end }}

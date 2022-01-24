@@ -1,6 +1,6 @@
 dependencies:
 - name: postgresql
   repository: https://rfinland.github.io/PostgresChart/
-  version: 0.1.11
-digest: sha256:c243da3ed3299c025672230023f1ac221f92974dd40280aa37a9d69b978c4698
-generated: "2022-01-23T10:36:22.689908935+03:30"
+  version: 0.1.14
+digest: sha256:99be0597525570219cbdf19fd61d77d6f5291aa7975b3fdaf002a367fcc27f25
+generated: "2022-01-24T13:11:07.569096854+03:30"

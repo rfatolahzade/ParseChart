@@ -5,8 +5,6 @@ hostname: 'rfinland.net'
 
 postgresql:
   username: postgres
-  password: postgres
+  password: postgres1
   database: postgres
-  port: 5432
-  postgresdatadir: '/postgresdata'
- 
+  data_dir: '/ParesDatabase'

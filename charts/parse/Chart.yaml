@@ -7,4 +7,4 @@ appVersion: "1.16.0"
 dependencies:
 - name: postgresql
   repository: https://rfinland.github.io/PostgresChart/
-  version: 0.1.15
+  version: 0.1.x

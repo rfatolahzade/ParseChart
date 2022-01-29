@@ -1,0 +1,16 @@
+{{- if .Values.dashboard.enabled -}}
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: parse-dashboard
+spec:
+  ports:
+  - name: "4040"
+    port: 4040
+    targetPort: 4040
+  selector:
+      parse-dashboard.service: parse-dashboard
+      
+{{- end -}}

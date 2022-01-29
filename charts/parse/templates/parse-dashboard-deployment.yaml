@@ -1,0 +1,37 @@
+{{- if .Values.dashboard.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parse-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      parse-dashboard.service: parse-dashboard
+  template:
+    metadata:
+      labels:
+        parse-dashboard.service: parse-dashboard
+    spec:
+      containers:
+      - name: parse-dashboard
+        image: parseplatform/parse-dashboard
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: PARSE_DASHBOARD_ALLOW_INSECURE_HTTP
+          value: "true"
+        - name: PARSE_DASHBOARD_APP_ID
+          value: {{ .Values.appId | quote }}
+        - name: PARSE_DASHBOARD_MASTER_KEY
+          value: {{ .Values.masterkey | quote }}
+        - name: PARSE_DASHBOARD_SERVER_URL
+          value: http://localhost:1337/parse
+        - name: PARSE_DASHBOARD_USER_ID
+          value: {{ .Values.username | quote }}
+        - name: PARSE_DASHBOARD_USER_PASSWORD
+          value: {{ .Values.password | quote }}
+        ports:
+        - name: parse-dashboard
+          containerPort: 4040
+          
+{{- end -}}

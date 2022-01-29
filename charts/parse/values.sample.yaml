@@ -8,3 +8,9 @@ postgresql:
   password: postgres1
   database: postgres
   data_dir: '/ParesDatabase'
+
+
+dashboard:
+  enabled: true
+  username: user
+  password: user

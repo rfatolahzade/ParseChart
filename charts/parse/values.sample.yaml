@@ -1,6 +1,6 @@
 appId: 'MyParseApp' 
 masterkey: 'adminadmin'
-hostname: 'rfinland.net'
+hostname: 'parse.rtl.net'
 
 
 postgresql:
@@ -14,3 +14,5 @@ dashboard:
   enabled: true
   username: user
   password: user
+  durl: dashboard.rtl.net
+#  appName: MyParseApp

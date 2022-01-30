@@ -1,20 +1,21 @@
 {{- if .Values.dashboard.enabled -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: parse-dashboard
+  name: dashboard
 spec:
   replicas: 1
   selector:
     matchLabels:
-      parse-dashboard.service: parse-dashboard
+      dashboard.service: dashboard
   template:
     metadata:
       labels:
-        parse-dashboard.service: parse-dashboard
+        dashboard.service: dashboard
     spec:
       containers:
-      - name: parse-dashboard
+      - name: dashboard
         image: parseplatform/parse-dashboard
         imagePullPolicy: IfNotPresent
         env:
@@ -25,13 +26,15 @@ spec:
         - name: PARSE_DASHBOARD_MASTER_KEY
           value: {{ .Values.masterkey | quote }}
         - name: PARSE_DASHBOARD_SERVER_URL
-          value: http://localhost:1337/parse
+          value: http://parse.rtl.net/parse
         - name: PARSE_DASHBOARD_USER_ID
           value: {{ .Values.username | quote }}
         - name: PARSE_DASHBOARD_USER_PASSWORD
           value: {{ .Values.password | quote }}
+ #       - name: PARSE_DASHBOARD_APP_NAME
+ #         value: {{ .Values.appName | quote }}
         ports:
-        - name: parse-dashboard
+        - name: dashboard-http
           containerPort: 4040
           
 {{- end -}}

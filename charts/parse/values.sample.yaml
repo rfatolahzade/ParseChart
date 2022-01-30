@@ -14,5 +14,4 @@ dashboard:
   enabled: true
   username: user
   password: user
-  durl: dashboard.rtl.net
-#  appName: MyParseApp
+  url: dashboard.rtl.net

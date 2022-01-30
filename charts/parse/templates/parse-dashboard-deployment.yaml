@@ -15,6 +15,8 @@ spec:
         dashboard.service: dashboard
     spec:
       containers:
+#      - command: ["node"]
+ #       args: ["Parse-Dashboard/index.js"]
       - name: dashboard
         image: parseplatform/parse-dashboard
         imagePullPolicy: IfNotPresent
@@ -26,15 +28,15 @@ spec:
         - name: PARSE_DASHBOARD_MASTER_KEY
           value: {{ .Values.masterkey | quote }}
         - name: PARSE_DASHBOARD_SERVER_URL
-          value: http://parse.rtl.net/parse
+          value: https://parse.rtl.net/parse
         - name: PARSE_DASHBOARD_USER_ID
-          value: {{ .Values.username | quote }}
+          value: {{ .Values.dashboard.username | quote }}
         - name: PARSE_DASHBOARD_USER_PASSWORD
-          value: {{ .Values.password | quote }}
- #       - name: PARSE_DASHBOARD_APP_NAME
- #         value: {{ .Values.appName | quote }}
+          value: {{ .Values.dashboard.password | quote }}
         ports:
         - name: dashboard-http
           containerPort: 4040
           
 {{- end -}}
+
+

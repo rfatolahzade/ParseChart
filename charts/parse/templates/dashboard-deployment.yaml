@@ -21,14 +21,14 @@ spec:
         image: parseplatform/parse-dashboard
         imagePullPolicy: IfNotPresent
         env:
-        - name: PARSE_DASHBOARD_ALLOW_INSECURE_HTTP
-          value: "true"
+#        - name: PARSE_DASHBOARD_ALLOW_INSECURE_HTTP
+#          value: "true"
         - name: PARSE_DASHBOARD_APP_ID
           value: {{ .Values.appId | quote }}
         - name: PARSE_DASHBOARD_MASTER_KEY
           value: {{ .Values.masterkey | quote }}
         - name: PARSE_DASHBOARD_SERVER_URL
-          value: https://parse.{{ .Values.domain }}/parse
+          value: https://{{ .Values.url }}/parse
         - name: PARSE_DASHBOARD_USER_ID
           value: {{ .Values.dashboard.username | quote }}
         - name: PARSE_DASHBOARD_USER_PASSWORD

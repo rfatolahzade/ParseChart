@@ -4,10 +4,14 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: dashboard-ingress
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
   - host: 
-     dashboard.{{ .Values.domain }}
+     {{ .Values.dashboard.url }}
     http:
       paths:
         - path: /
@@ -17,4 +21,8 @@ spec:
               name: dashboard
               port:
                 number: 4040
+  tls:
+   - secretName: parse-tls
+    
 {{- end -}}
+

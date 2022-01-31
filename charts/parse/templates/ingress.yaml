@@ -5,11 +5,13 @@ kind: Ingress
 metadata:
   name: parse-ingress
   annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    kubernetes.io/ingress.class: "traefik"
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
   - host: 
-     parse.{{ .Values.domain }}
+     {{ .Values.url }}
     http:
       paths:
         - path: /
@@ -19,4 +21,7 @@ spec:
               name: server
               port:
                 number: 1337
+  tls:
+   - secretName: parse-tls
+    
 {{- end -}}

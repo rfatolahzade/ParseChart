@@ -1108,5 +1108,21 @@ curl -X GET \
   http://rtl.net/parse/classes/GameScore
 
 ```
-  
+#### tls
+Self-signed certificates:
+```bash
+openssl req -nodes -new -x509 -keyout server.key -out server.crt -days 365 \
+-subj "/C=FI/ST=Finland/L=Helsinki/O=MyApa/CN=rtl.net" \
+-addext "subjectAltName = DNS:parse.rtl.net,DNS:dashboard.rtl.net"
+```
+Configure Ingress:
+```bash
+kubectl create secret generic parse-tls --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
+```
+Run traefik dashboard:
+```bash
+kubectl port-forward -n kube-system "$(kubectl get pods -n kube-system| grep '^traefik-' | awk '{print $1}')" 9000:9000
+```
+
+
   

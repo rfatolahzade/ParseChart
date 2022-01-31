@@ -1124,5 +1124,9 @@ Run traefik dashboard:
 kubectl port-forward -n kube-system "$(kubectl get pods -n kube-system| grep '^traefik-' | awk '{print $1}')" 9000:9000
 ```
 
-
+If you have a signed cert , fill server.crt with your cert and then run:
+```bash
+cp /root/Certs/server.crt /usr/local/share/ca-certificates/server.crt
+update-ca-certificates
+```
   

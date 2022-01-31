@@ -1,6 +1,6 @@
 appId: 'MyParseApp' 
 masterkey: 'adminadmin'
-domain: 'rtl.net'
+#domain: 'rtl.net'
 url: 'parse.rtl.net'
 
 postgresql:

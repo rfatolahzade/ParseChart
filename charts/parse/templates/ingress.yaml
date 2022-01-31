@@ -9,7 +9,7 @@ metadata:
 spec:
   rules:
   - host: 
-     parse.{{ .Values.url }}
+     {{ .Values.url }}
     http:
       paths:
         - path: /

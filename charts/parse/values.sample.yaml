@@ -1,7 +1,7 @@
 appId: 'MyParseApp' 
 masterkey: 'adminadmin'
-hostname: 'parse.rtl.net'
-
+domain: 'rtl.net'
+url: 'parse.rtl.net'
 
 postgresql:
   username: postgres

@@ -1,4 +1,4 @@
-{{- if .Values.hostname -}}
+{{- if .Values.url -}}
 
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -9,7 +9,7 @@ metadata:
 spec:
   rules:
   - host: 
-     {{ .Values.hostname }}
+     {{ .Values.url }}
     http:
       paths:
         - path: /

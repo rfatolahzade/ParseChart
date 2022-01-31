@@ -1115,7 +1115,7 @@ openssl req -nodes -new -x509 -keyout server.key -out server.crt -days 365 \
 -subj "/C=FI/ST=Finland/L=Helsinki/O=MyApa/CN=rtl.net" \
 -addext "subjectAltName = DNS:parse.rtl.net,DNS:dashboard.rtl.net"
 ```
-Configure Ingress:
+Create a secret:
 ```bash
 kubectl create secret generic parse-tls --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
 ```
@@ -1124,7 +1124,7 @@ Run traefik dashboard:
 kubectl port-forward -n kube-system "$(kubectl get pods -n kube-system| grep '^traefik-' | awk '{print $1}')" 9000:9000
 ```
 
-If you have a signed cert , fill server.crt with your cert and then run:
+If you have a signed cert , fill server.crt with your cert and re-create the secret atleast run:
 ```bash
 cp /root/Certs/server.crt /usr/local/share/ca-certificates/server.crt
 update-ca-certificates

@@ -28,7 +28,7 @@ spec:
         - name: PARSE_DASHBOARD_MASTER_KEY
           value: {{ .Values.masterkey | quote }}
         - name: PARSE_DASHBOARD_SERVER_URL
-          value: https://{{ .Values.url }}/parse
+          value: https://parse.{{ .Values.domain }}/parse
         - name: PARSE_DASHBOARD_USER_ID
           value: {{ .Values.dashboard.username | quote }}
         - name: PARSE_DASHBOARD_USER_PASSWORD

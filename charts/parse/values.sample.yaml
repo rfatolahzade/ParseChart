@@ -1,7 +1,7 @@
 appId: 'MyParseApp' 
 masterkey: 'adminadmin'
-#domain: 'rtl.net'
-url: 'parse.rtl.net'
+url: 'parse.rayvarz.link'
+
 
 postgresql:
   username: postgres
@@ -14,4 +14,4 @@ dashboard:
   enabled: true
   username: user
   password: user
-  url: dashboard.rtl.net
+  url: dashboard.rayvarz.link

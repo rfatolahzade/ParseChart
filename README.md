@@ -1217,3 +1217,43 @@ List of Secrets:
 ```bash
 kubectl get secrets
 ```
+
+Change ingress:
+```bash
+kubectl edit ingress parse-ingress
+```
+Add 
+```bash
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+```
+In the annotations And modify tls:
+```bash
+  tls:
+  - hosts:
+    - parse.rayvarz.link
+    secretName: parse.rayvarz.link
+	
+```
+For Dashboard:
+```bash
+kubectl edit ingress dashboard-ingress
+```
+Add 
+```bash
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+```
+In the annotations And modify tls:
+
+```bash
+  tls:
+  - hosts:
+    - dashboard.rayvarz.link
+    secretName: dashboard.rayvarz.link
+```
+
+# Accessing Traefik Ingress Resources using Let’s Encrypt
+Just visit your link on browser.

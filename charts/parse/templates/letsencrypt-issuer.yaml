@@ -6,7 +6,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: r.finland88@gmail.com
+    email: r.finland88@gmail.com   
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:

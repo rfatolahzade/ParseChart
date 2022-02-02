@@ -1127,10 +1127,32 @@ kubectl port-forward -n kube-system "$(kubectl get pods -n kube-system| grep '^t
 # Kubernetes Traefik Ingress LetsEncrypt
 Add an issuer:
 ```bash
+nano  letsencrypt-issuer.yml
+```
+change as shown below:
+```bash
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+  namespace: default
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: mad13n@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress:
+          class: traefik
+```
+You have to change email address.
+Apply Issuer:
+```bash
 kubectl apply -f letsencrypt-issuer.yml
 ```
 We have deployed letsEncrypt issuer which issues certificates.
-You have to change email address.
 
 
 

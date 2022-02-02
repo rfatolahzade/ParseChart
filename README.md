@@ -1139,7 +1139,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: r.finland@gmail.com
+    email: r.finland88@gmail.com
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:
@@ -1153,6 +1153,67 @@ Apply Issuer:
 kubectl apply -f letsencrypt-issuer.yml
 ```
 We have deployed letsEncrypt issuer which issues certificates.
+```bash
+kubectl get ClusterIssuer
+```
+# Creating Traefik Ingress Let’s Encrypt TLS Certificate
+Now lets create Traefik Ingress LetsEncrypt TLS certificate for your microservice (parse and dashboard):
 
+For parse:
+```bash
+nano letsencrypt-cert-parse.yaml
+```
+change as shown below:
+```bash
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: parse.rayvarz.link
+  namespace: default
+spec:
+  secretName: parse.rayvarz.link
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: parse.rayvarz.link
+  dnsNames:
+  - parse.rayvarz.link
+  
+```
+For Dashboard:
+```bash
+nano letsencrypt-cert-dashboard.yaml
+```
+change as shown below:
+```bash
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dashboard.rayvarz.link
+  namespace: default
+spec:
+  secretName: dashboard.rayvarz.link
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: dashboard.rayvarz.link
+  dnsNames:
+  - dashboard.rayvarz.link
+  
+```
 
+And apply:
 
+```bash
+kubectl apply -f letsencrypt-cert-parse.yaml
+kubectl apply -f letsencrypt-cert-dashboard.yaml
+```
+List of Certificate:
+```bash
+kubectl get Certificate
+```
+List of Secrets:
+
+```bash
+kubectl get secrets
+```

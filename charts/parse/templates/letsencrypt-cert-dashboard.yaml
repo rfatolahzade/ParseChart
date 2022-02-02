@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dashboard.rayvarz.link
+  namespace: default
+spec:
+  secretName: dashboard.rayvarz.link
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: dashboard.rayvarz.link
+  dnsNames:
+  - dashboard.rayvarz.link
+  

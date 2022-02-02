@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: parse.rayvarz.link
+  namespace: default
+spec:
+  secretName: parse.rayvarz.link
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: parse.rayvarz.link
+  dnsNames:
+  - parse.rayvarz.link
+  

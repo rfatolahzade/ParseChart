@@ -1123,4 +1123,14 @@ Run traefik dashboard:
 ```bash
 kubectl port-forward -n kube-system "$(kubectl get pods -n kube-system| grep '^traefik-' | awk '{print $1}')" 9000:9000
 ```
-  
+
+# Kubernetes Traefik Ingress LetsEncrypt
+Add an issuer:
+```bash
+kubectl apply -f letsencrypt-issuer.yml
+```
+We have deployed letsEncrypt issuer which issues certificates.
+You have to change email address.
+
+
+

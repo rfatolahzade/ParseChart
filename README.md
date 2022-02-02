@@ -1139,7 +1139,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: mad13n@gmail.com
+    email: r.finland@gmail.com
     privateKeySecretRef:
       name: letsencrypt-prod
     solvers:

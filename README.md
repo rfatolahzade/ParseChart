@@ -1125,6 +1125,14 @@ kubectl port-forward -n kube-system "$(kubectl get pods -n kube-system| grep '^t
 ```
 
 # Kubernetes Traefik Ingress LetsEncrypt
+First of all you have to install cert-manager:
+```bash
+helm install \
+  cert-manager jetstack/cert-manager \
+  --namespace cert-manager \
+  --create-namespace \
+  --set installCRDs=true
+```
 Add an issuer:
 ```bash
 nano  letsencrypt-issuer.yml

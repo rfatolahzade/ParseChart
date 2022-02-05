@@ -80,7 +80,7 @@ The mountPath: /var/lib/postgresql/data as postgres data directory.
 Let's intall the helm:
 ```bash
 cd /ParseChart/charts/Parse
-helm install parse . -f values.sample.yaml
+helm install parse . -f values.yaml
 ```
 
 Test Health:
@@ -135,7 +135,7 @@ helm uninstall parse
 ```
 and then reInstall the chart:
 ```bash
-helm install parse . -f values.sample.yaml
+helm install parse . -f values.yaml
 ```
 Get old records as well:
 ```bash

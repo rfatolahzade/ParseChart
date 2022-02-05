@@ -5,6 +5,9 @@ kind: Ingress
 metadata:
   name: dashboard-ingress
   annotations:
+    {{ if .Values.certmanager.enabled }}
+    {{ "cert-manager.io/cluster-issuer: letsencrypt-prod" }}
+    {{ end }} 
     kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.tls: "true"
@@ -22,7 +25,13 @@ spec:
               port:
                 number: 4040
   tls:
-   - secretName: parse-tls
+   - secretName: 
+      {{ if .Values.certmanager.enabled }}
+       {{ .Values.dashboard.url | quote }}
+      {{ else }}
+       {{ "parse-tls" }}
+      {{ end }} 
+   
     
 {{- end -}}
 

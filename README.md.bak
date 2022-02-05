@@ -49,9 +49,10 @@ certmanager:                  #If you want to use cert-manager as tls connected 
   enabled: false              #If true certs and issuer will create as your urls for parse and dashboard
   
 ```
-# Helming!
+Run the chart:
 
 ```bash
+cd /charts/parse
 helm install parse . -f values.sample.yaml 
 ```
 If you have your own certs(server.crt,server.key) based on your urls:
@@ -65,5 +66,3 @@ If you want to use cert-manager and letsencrypt just enable certmanager inside v
 certmanager:          
   enabled: true
 ``` 
-
-Here you go.

@@ -25,7 +25,6 @@ spec:
               port:
                 number: 1337
   tls:
-   - secretName: 
-       {{ .Values.url | quote }}
+   - secretName: parse-tls
     
 {{- end -}}

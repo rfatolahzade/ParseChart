@@ -25,8 +25,7 @@ spec:
               port:
                 number: 4040
   tls:
-   - secretName: 
-       {{ .Values.dashboard.url | quote }}
+   - secretName: parse-tls
 
 {{- end -}}
 

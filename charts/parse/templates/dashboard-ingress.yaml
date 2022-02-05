@@ -26,12 +26,7 @@ spec:
                 number: 4040
   tls:
    - secretName: 
-      {{ if .Values.certmanager.enabled }}
        {{ .Values.dashboard.url | quote }}
-      {{ else }}
-       {{ "parse-tls" }}
-      {{ end }} 
-   
-    
+
 {{- end -}}
 

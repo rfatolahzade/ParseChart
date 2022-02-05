@@ -26,10 +26,6 @@ spec:
                 number: 1337
   tls:
    - secretName: 
-      {{ if .Values.certmanager.enabled }}
        {{ .Values.url | quote }}
-      {{ else }}
-       {{ "parse-tls" }}
-      {{ end }} 
     
 {{- end -}}

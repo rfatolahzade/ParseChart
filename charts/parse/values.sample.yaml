@@ -18,4 +18,4 @@ dashboard:
 
 
 certmanager:
-  enabled: false
+  enabled: true

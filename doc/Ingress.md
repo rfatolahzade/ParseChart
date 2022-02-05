@@ -36,7 +36,7 @@ then copy the host IP in my case "192.168.1.209" and then set it in /etc/hosts
 ```
 Apply changes:
 ```bash
-helm upgrade parse . -f values.sample.yaml
+helm upgrade parse . -f values.yaml
 kubectl get ingress
 ```
 ```bash

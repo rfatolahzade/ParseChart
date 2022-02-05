@@ -64,5 +64,5 @@ You have to set name of secret inside values file.
 If you want to use cert-manager and letsencrypt just enable certmanager inside values yaml file:
 ```bash
 certmanager:          
-  enabled: false
+  enabled: true
 ``` 

@@ -22,7 +22,7 @@ Take a look to values file:
 ```bash 
 git clone https://github.com/rfinland/ParseChart.git
 cd ParseChart/charts/parse
-nano values.sample.yaml
+nano values.yaml 
 ```
 As default:
 ```bash
@@ -52,7 +52,7 @@ certmanager:                  #If you want to use cert-manager as tls connected 
 # Helming!
 
 ```bash
-helm install parse . -f values.sample.yaml 
+helm install parse . -f values.yaml 
 ```
 If you have your own certs(server.crt,server.key) based on your urls:
 ```bash

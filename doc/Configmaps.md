@@ -88,7 +88,7 @@ curl -X GET \
   http://rfinland.net/parse/classes/GameScore
 ```
 #### change value inner configmap env
-Now you can delete values.sample.yaml, and let's edit cm:
+Now you can delete values.yaml, and let's edit cm:
 ```bash
 k edit cm parse
 ```
@@ -198,7 +198,7 @@ curl http://rfinland.net/parse/health
 
 # call from values to configmap then to env
 #### configmap
-our configmap.yaml file (I set default value and call from values.sample.yaml):
+our configmap.yaml file (I set default value and call from values.yaml):
  
  ```bash
 apiVersion: v1
@@ -239,7 +239,7 @@ In the serve.deployment.yaml:
 ```
 Install the chart:
 ```bash
-helm install  parse . -f values.sample.yaml
+helm install  parse . -f values.yaml
 #OR default
 helm install  parse .
 ```

@@ -28,7 +28,7 @@ As default:
 ```bash
 appId: 'MyParseApp'          #Parse appID 
 masterkey: 'adminadmin'      #Parse masterkey 
-url: 'parse.rayvarz.link'    #YOUR Parse url 
+url: 'parse.rayvarz.link'    #Parse url 
 
 
 postgresql:          
@@ -42,11 +42,11 @@ dashboard:
   enabled: true               #True if you need dashboard 
   username: user              #dashboard username if you enabled dashboard 
   password: user              #dashboard password if you enabled dashboard 
-  url: dashboard.rayvarz.link #YOUR Dashboard url
+  url: dashboard.rayvarz.link #dashboard url
 
 
 certmanager:                  #If you want to use cert-manager as tls connected to letsencrypt
-  enabled: false              #If true certs and issuer will create as your urls for parse and dashboard
+  enabled: true               #If true certs and issuer will create as your urls for parse and dashboard
   
 ```
 Run the chart:
@@ -57,12 +57,8 @@ helm install parse . -f values.sample.yaml
 ```
 If you have your own certs(server.crt,server.key) based on your urls:
 ```bash
-kubectl create secret generic {YOUR Parse url} --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
-kubectl create secret generic {YOUR Dashboard url} --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
+
+kubectl create secret generic {YOUR PARSE URL} --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
+kubectl create secret generic {YOUR Dashboard URL} --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
 ```
 You have to set name of secret inside values file.
-If you want to use cert-manager and letsencrypt just enable certmanager inside values yaml file:
-```bash
-certmanager:          
-  enabled: false
-``` 

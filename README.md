@@ -39,7 +39,7 @@ postgresql:
 
 
 dashboard: 
-  enabled: true               #True if you need dashboard 
+  enabled: true               #True if you need the parse dashboard 
   username: user              #dashboard username if you enabled dashboard 
   password: user              #dashboard password if you enabled dashboard 
   url: {YOUR Dashboard url}   #YOUR Dashboard url

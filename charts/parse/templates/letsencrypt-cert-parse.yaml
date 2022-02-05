@@ -3,15 +3,15 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: parse.rayvarz.link
+  name: {{ .Values.url | quote }}
   namespace: default
 spec:
-  secretName: parse.rayvarz.link
+  secretName: {{ .Values.url | quote }}
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: parse.rayvarz.link
+  commonName: {{ .Values.url | quote }}
   dnsNames:
-  - parse.rayvarz.link
+  - {{ .Values.url | quote }}
  
 {{- end -}}

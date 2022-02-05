@@ -28,7 +28,7 @@ As default:
 ```bash
 appId: 'MyParseApp'          #Parse appID 
 masterkey: 'adminadmin'      #Parse masterkey 
-url: 'parse.rayvarz.link'    #YOUR Parse url 
+url: '{YOUR Parse url}'      #YOUR Parse url 
 
 
 postgresql:          
@@ -42,7 +42,7 @@ dashboard:
   enabled: true               #True if you need dashboard 
   username: user              #dashboard username if you enabled dashboard 
   password: user              #dashboard password if you enabled dashboard 
-  url: dashboard.rayvarz.link #YOUR Dashboard url
+  url: {YOUR Dashboard url}  #YOUR Dashboard url
 
 
 certmanager:                  #If you want to use cert-manager as tls connected to letsencrypt

@@ -20,9 +20,9 @@ The value will be :
 ```bash
 randAlphaNum 10 | b64enc
 ```
-Call masterkey from values.sample.yaml:
+Call masterkey from values.yaml:
 ```bash
-helm install parse charts/parse/   -f charts/parse/values.sample.yaml
+helm install parse charts/parse/   -f charts/parse/values.yaml
 ```
 The value will be "YWRtaW5hZG1pbg==":
 ```bash
@@ -34,9 +34,9 @@ kubectl edit secret secret-parse
 ```
 I can see my value:"YWRtaW5hZG1pbg=="
 #### ingress
-If you set host inner values.sample.yaml Parse ingress will be install too.
+If you set host inner values.yaml Parse ingress will be install too.
 ```bash
-helm install parse charts/parse/   -f charts/parse/values.sample.yaml
+helm install parse charts/parse/   -f charts/parse/values.yaml
 ```
 Set it with set:
 ```bash

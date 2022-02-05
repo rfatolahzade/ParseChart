@@ -1115,9 +1115,10 @@ openssl req -nodes -new -x509 -keyout server.key -out server.crt -days 365 \
 -subj "/C=FI/ST=Finland/L=Helsinki/O=MyApa/CN=rtl.net" \
 -addext "subjectAltName = DNS:parse.rtl.net,DNS:dashboard.rtl.net"
 ```
-Create a secret:
+Create secrets for dashboard and parse:
 ```bash
-kubectl create secret generic parse-tls --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
+kubectl create secret generic parse.rayvarz.link --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
+kubectl create secret generic dashboard.rayvarz.link --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
 ```
 Run traefik dashboard:
 ```bash

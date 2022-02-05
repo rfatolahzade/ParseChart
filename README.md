@@ -1174,19 +1174,24 @@ nano letsencrypt-cert-parse.yaml
 ```
 change as shown below:
 ```bash
+{{- if .Values.certmanager.enabled -}}
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: parse.rayvarz.link
+  name: {{ .Values.url | quote }}
   namespace: default
 spec:
-  secretName: parse.rayvarz.link
+  secretName: {{ .Values.url | quote }}
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: parse.rayvarz.link
+  commonName: {{ .Values.url | quote }}
   dnsNames:
-  - parse.rayvarz.link
+  - {{ .Values.url | quote }}
+ 
+{{- end -}}
+
   
 ```
 For Dashboard:
@@ -1195,19 +1200,25 @@ nano letsencrypt-cert-dashboard.yaml
 ```
 change as shown below:
 ```bash
+{{- if .Values.certmanager.enabled -}}
+
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: dashboard.rayvarz.link
+  name: {{ .Values.dashboard.url | quote }}
   namespace: default
 spec:
-  secretName: dashboard.rayvarz.link
+  secretName: {{ .Values.dashboard.url | quote }}
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: dashboard.rayvarz.link
+  commonName: {{ .Values.dashboard.url | quote }}
   dnsNames:
-  - dashboard.rayvarz.link
+  - {{ .Values.dashboard.url | quote }}
+ 
+ 
+{{- end -}}
+
   
 ```
 
@@ -1226,39 +1237,11 @@ List of Secrets:
 ```bash
 kubectl get secrets
 ```
-
-Change ingress:
+IF you set:
 ```bash
-kubectl edit ingress parse-ingress
+certmanager:
+  enabled: true
 ```
-Add 
-```bash
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-```
-In the annotations And modify tls:
-```bash
-  tls:
-  - secretName: parse.rayvarz.link
-	
-```
-For Dashboard:
-```bash
-kubectl edit ingress dashboard-ingress
-```
-Add 
-```bash
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-```
-In the annotations And modify tls:
-
-```bash
-  tls:
-  - secretName: dashboard.rayvarz.link
-```
-
+letsencrypt-cert-dashboard,letsencrypt-cert-parse and letsencrypt-issuer will prepare k8s to use cert-manager as tls
 # Accessing Traefik Ingress Resources using Let’s Encrypt
 Just visit your link on browser.

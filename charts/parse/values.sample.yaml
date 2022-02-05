@@ -15,11 +15,11 @@ dashboard:
   username: user
   password: user
   url: dashboard.rayvarz.link
-
+  
+https: true
 
 certmanager:
-  enabled: true
+  enabled: false
   
-https:
-  enabled: true
+
  

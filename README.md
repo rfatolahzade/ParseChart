@@ -1239,9 +1239,7 @@ metadata:
 In the annotations And modify tls:
 ```bash
   tls:
-  - hosts:
-    - parse.rayvarz.link
-    secretName: parse.rayvarz.link
+  - secretName: parse.rayvarz.link
 	
 ```
 For Dashboard:
@@ -1258,9 +1256,7 @@ In the annotations And modify tls:
 
 ```bash
   tls:
-  - hosts:
-    - dashboard.rayvarz.link
-    secretName: dashboard.rayvarz.link
+  - secretName: dashboard.rayvarz.link
 ```
 
 # Accessing Traefik Ingress Resources using Let’s Encrypt

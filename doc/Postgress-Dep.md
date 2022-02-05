@@ -34,14 +34,14 @@ cd ParseChart/charts/parse
 helm dependency update
 ```
 inside the ParseChart/charts/parse/charts you able to see .tgz file of you dependency.
-inner the values yml file(values.sample.yaml) add these lines to set password for postgresql (your dependency):
+inner the values yml file(values.yaml) add these lines to set password for postgresql (your dependency):
 ```bash
 postgresql:
   postgresqlPassword: 'mypass'
 ```
 and run the app:
 ```bash
-helm install parse . --set hostname=rtl.net -f values.sample.yaml
+helm install parse . --set hostname=rtl.net -f values.yaml
 ```
 Your app will be up and test it
 Test Health:

@@ -106,7 +106,7 @@ curl http://rfinland.net/parse/health
 
 # call from values to secret then to env
 #### secret
-Our values.sample.yaml file has been changed to:
+Our values.yaml file has been changed to:
 ```bash
 server:
  appId: 'MyParseApp' 
@@ -114,7 +114,7 @@ server:
  database: 'postgres://postgres:postgres@postgres/postgres'
 ```
 
-our secret.yaml file (I set default value and call from values.sample.yaml):
+our secret.yaml file (I set default value and call from values.yaml):
 ```bash
 apiVersion: v1
 kind: Secret
@@ -145,7 +145,7 @@ and in server-deployment.yaml:
 ```
 Install the chart:
 ```bash
-helm install  parse . -f values.sample.yaml
+helm install  parse . -f values.yaml
 #OR default
 helm install  parse .
 ```
@@ -158,4 +158,4 @@ If you run:
 echo -n 'adminadmin' | base64 
 ```
 the result "YWRtaW5hZG1pbg=="
-and if you didn't call the values.sample.yaml result of "k edit secrets secret-parse" will be diffrent.
+and if you didn't call the values.yaml result of "k edit secrets secret-parse" will be diffrent.

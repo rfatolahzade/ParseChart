@@ -25,10 +25,10 @@ helm install parse .
 Notice: in "helm install parse ." You won't be able to set an uppercase name.
 
 ##### Values.yaml
-Lets create/empty values.sample.yaml to set our envs:
+Lets create/empty values.yaml to set our envs:
 
 ```bash
- cat <<EOF > values.sample.yaml
+ cat <<EOF > values.yaml
 server:
  - name: PARSE_SERVER_APPLICATION_ID
    value: MyParseApp
@@ -60,6 +60,6 @@ containers:
 ```
 save the file and run helm install contains your values file:	  
 ```bash
-helm upgrade parse . -f values.sample.yaml
+helm upgrade parse . -f values.yaml
 kubectl get all -o wide 
 ```

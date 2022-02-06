@@ -1,5 +1,4 @@
 {{- if .Values.dashboard.enabled -}}
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,8 +14,6 @@ spec:
         dashboard.service: dashboard
     spec:
       containers:
-#      - command: ["node"]
- #       args: ["Parse-Dashboard/index.js"]
       - name: dashboard
         image: parseplatform/parse-dashboard
         imagePullPolicy: IfNotPresent
@@ -45,6 +42,5 @@ spec:
           value: {{ .Values.dashboard.password | quote }}
         ports:
         - name: dashboard-http
-          containerPort: 4040
-          
+          containerPort: 4040  
 {{- end -}}

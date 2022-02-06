@@ -5,7 +5,7 @@ url: 'parse.rayvarz.link'
 
 postgresql:
   username: postgres
-  password: postgres1
+  password: postgres
   database: postgres
   data_dir: '/ParesDatabase'
 

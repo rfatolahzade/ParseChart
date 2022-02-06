@@ -44,6 +44,7 @@ dashboard:
   password: user              #dashboard password if you enabled dashboard 
   url: {YOUR Dashboard url}   #YOUR Dashboard url
 
+https: true                   #Enabling https
 
 certmanager:                  #If you want to use cert-manager as tls connected to letsencrypt
   enabled: false              #If true certs and issuer will create as your urls for parse and dashboard

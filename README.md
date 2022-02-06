@@ -56,8 +56,7 @@ helm install parse . -f values.yaml
 ```
 If you have your own certs(server.crt,server.key) based on your urls:
 ```bash
-kubectl create secret generic {YOUR Parse url} --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
-kubectl create secret generic {YOUR Dashboard url} --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
+kubectl create secret generic parse-tls --from-file=tls.crt=./server.crt --from-file=tls.key=./server.key 
 ```
 You have to set name of secret inside values file.
 If you want to use cert-manager and letsencrypt just enable certmanager inside values yaml file:

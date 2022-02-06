@@ -1,5 +1,3 @@
-{{- if .Values.url -}}
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -14,6 +12,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.tls: "true"
     {{ end }}  
 spec:
+{{ if .Values.url }}
   rules:
   - host: 
      {{ .Values.url }}
@@ -26,8 +25,21 @@ spec:
               name: server
               port:
                 number: 1337
+{{ end }}  
+{{ if .Values.dashboard.enabled }} 
+  - host: 
+     {{ .Values.dashboard.url }}
+    http:
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: dashboard
+              port:
+                number: 4040
+{{ end }}              
 {{ if .Values.https }} 
   tls:
     - secretName: parse-tls
-{{ end }} 
-{{- end -}}
+{{ end }}

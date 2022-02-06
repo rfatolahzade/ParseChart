@@ -19,5 +19,5 @@ dashboard:
 https: true
 
 certmanager:
-  enabled: false
+  enabled: true
   

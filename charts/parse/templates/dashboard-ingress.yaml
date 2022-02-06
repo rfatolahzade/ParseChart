@@ -5,9 +5,9 @@ kind: Ingress
 metadata:
   name: dashboard-ingress
   annotations:
-    {{ if .Values.certmanager.enabled }}
+    {{- if .Values.https }}{{ if .Values.certmanager.enabled }}
     {{ "cert-manager.io/cluster-issuer: letsencrypt-prod" }}
-    {{ end }} 
+    {{- end }} {{ end }}
     kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.tls: "true"

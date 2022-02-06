@@ -20,6 +20,3 @@ https: false
 
 certmanager:
   enabled: false
-  
-
- 

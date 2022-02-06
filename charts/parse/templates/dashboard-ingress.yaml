@@ -5,12 +5,14 @@ kind: Ingress
 metadata:
   name: dashboard-ingress
   annotations:
-    {{- if .Values.https }}{{ if .Values.certmanager.enabled }}
-    {{ "cert-manager.io/cluster-issuer: letsencrypt-prod" }}
+    {{- if .Values.https }} {{ if .Values.certmanager.enabled }}
+     {{ "cert-manager.io/cluster-issuer: letsencrypt-prod" }}
     {{- end }} {{ end }}
     kubernetes.io/ingress.class: "traefik"
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
-    traefik.ingress.kubernetes.io/router.tls: "true"
+     {{ if .Values.https }} 
+      {{ "traefik.ingress.kubernetes.io/router.entrypoints: websecure" }}
+      {{ "traefik.ingress.kubernetes.io/router.tls: true" }}
+    {{ end }}  
 spec:
   rules:
   - host: 

@@ -11,7 +11,7 @@ postgresql:
 
 
 dashboard:
-  enabled: true
+  enabled: false
   username: user
   password: user
   url: dashboard.rayvarz.link

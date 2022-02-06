@@ -10,4 +10,3 @@ data:
    {{ else }}
     {{ "MyParse" }}
    {{ end }} 
-  #database-url: "postgres://postgres:@parse-postgresql/postgres"

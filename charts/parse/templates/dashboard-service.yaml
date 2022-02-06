@@ -1,6 +1,5 @@
 {{- if .Values.dashboard.enabled -}}
 
-
 apiVersion: v1
 kind: Service
 metadata:

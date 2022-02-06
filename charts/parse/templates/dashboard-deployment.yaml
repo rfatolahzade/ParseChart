@@ -22,7 +22,12 @@ spec:
         imagePullPolicy: IfNotPresent
         env:
         - name: PARSE_DASHBOARD_ALLOW_INSECURE_HTTP
-          value: "true"
+          value:
+            {{ if .Values.https }}
+              "false"
+            {{ else }} 
+              "true"
+            {{ end }}
         - name: PARSE_DASHBOARD_APP_ID
           value: {{ .Values.appId | quote }}
         - name: PARSE_DASHBOARD_MASTER_KEY
@@ -38,5 +43,3 @@ spec:
           containerPort: 4040
           
 {{- end -}}
-
-

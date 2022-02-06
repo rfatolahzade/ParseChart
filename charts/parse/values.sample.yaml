@@ -16,7 +16,7 @@ dashboard:
   password: user
   url: dashboard.rayvarz.link
   
-https: true
+https: false
 
 certmanager:
   enabled: false
